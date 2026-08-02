@@ -22,3 +22,6 @@ body {
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 }
+.math-input-height{
+  height: var(--mat-form-field-contianer-height) !important;
+}

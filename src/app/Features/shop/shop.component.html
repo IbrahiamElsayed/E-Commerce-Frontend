@@ -1,0 +1,64 @@
+<div class="flex flex-col gap-6">
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <mat-paginator
+      (page)="handlePageEvent($event)"
+      [length]="products()?.count ?? 0"
+      [pageSize]="shopparams.pageSize"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="shopparams.pageNumber - 1"
+      aria-label="Select page">
+    </mat-paginator>
+    <div class="relative w-full max-w-xs">
+      <mat-icon class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</mat-icon>
+      <input
+        type="search"
+        placeholder="Search products..."
+        class="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 text-sm focus:border-blue-600 focus:outline-none"
+        [ngModel]="shopparams.search"
+        (ngModelChange)="onSearchInput($event)"
+        (keyup.enter)="getProducts()"
+      />
+    </div>
+
+    <div class="flex gap-3">
+      <button mat-stroked-button (click)="openFiltersDialog()">
+        <mat-icon>filter_list</mat-icon>
+        Filters
+      </button>
+
+      <button mat-stroked-button [matMenuTriggerFor]="sortMenu">
+        <mat-icon>swap_vert</mat-icon>
+        Sort
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @for (product of products()?.date; track product.id) {
+      <app-product-item [product]="product"></app-product-item>
+    } @empty {
+      <p class="col-span-full text-center text-gray-500 py-10">No products found</p>
+    }
+  </div>
+
+</div>
+
+<mat-menu #sortMenu="matMenu">
+  <mat-selection-list
+    [multiple]="false"
+    (selectionChange)="onSortChange($event)">
+
+    @for (sort of sortOptions; track sort.value) {
+      <mat-list-option
+        [value]="sort.value"
+        [selected]="shopparams.sort === sort.value">
+
+        {{ sort.name }}
+
+      </mat-list-option>
+    }
+
+  </mat-selection-list>
+</mat-menu>

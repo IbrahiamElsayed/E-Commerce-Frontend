@@ -1,8 +1,7 @@
 @if(product){
-<mat-card appearance="raised">
+<mat-card appearance="raised" [routerLink]="['/shop', product.id]" class="cursor-pointer">
 
-      <img class="rounded-t-lg"
-        class="w-full h-60 object-cover"
+      <img class="w-full h-60 object-cover"
         [src]="product.PictureUrl"
         [alt]="product.name">
         <mat-card-content class="mt-2">
@@ -10,10 +9,10 @@
             <p class="font-light">{{product.price|currency}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-stroked-button class="w-full">
+            <button mat-stroked-button class="w-full" (click)="$event.stopPropagation()">
                 <mat-icon>add_shopping_cart</mat-icon>
                 Add to cart
-                
+
             </button>
         </mat-card-actions>
 

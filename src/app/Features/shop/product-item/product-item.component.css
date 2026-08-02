@@ -6,3 +6,11 @@ mat-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
+.product-card{
+  transition: transform .2s,box-shadow .2s;
+}
+.product-card:hover{
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgpa(0.0.0,0.2);
+  cursor:pointer
+}

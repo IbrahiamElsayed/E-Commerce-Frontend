@@ -20,3 +20,8 @@
   border-radius: 8px !important;
   color: blue !important;
 }
+a{
+   &.active {
+    color: #7d00fa;
+  }
+}

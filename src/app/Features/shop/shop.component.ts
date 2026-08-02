@@ -5,7 +5,7 @@ import { Product } from '../../shared/models/product';
 import { ProductItemComponent } from "./product-item/product-item.component";
 import { MatDialog } from '@angular/material/dialog';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from "@angular/material/icon";
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { MatSelectionList, MatListOption, MatSelectionListChange } from "@angular/material/list";
@@ -17,7 +17,7 @@ import { Subject, debounceTime, distinctUntilChanged, Subscription } from 'rxjs'
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [ProductItemComponent, MatButton, MatIconButton, MatIcon, MatMenuTrigger, MatMenu, MatSelectionList, MatListOption, MatPaginator, FormsModule],
+  imports: [ProductItemComponent, MatButton, MatIcon, MatMenuTrigger, MatMenu, MatSelectionList, MatListOption, MatPaginator, FormsModule],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

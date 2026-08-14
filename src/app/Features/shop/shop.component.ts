@@ -1,6 +1,7 @@
 import { ShopParams } from './../../shared/models/shopParams';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ShopService } from '../../core/services/shop.service';
+import { SnackbarService } from '../../core/services/snackbar.service';
 import { Product } from '../../shared/models/product';
 import { ProductItemComponent } from "./product-item/product-item.component";
 import { MatDialog } from '@angular/material/dialog';
@@ -25,6 +26,7 @@ import { Subject, debounceTime, distinctUntilChanged, Subscription } from 'rxjs'
 export class ShopComponent implements OnInit, OnDestroy {
 
   private shopService = inject(ShopService);
+  private snackbar = inject(SnackbarService);
   private dialogservice = inject(MatDialog);
   products = signal<Pagination<Product> | null>(null);
   sortOptions = [
@@ -66,6 +68,7 @@ export class ShopComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error(error);
+        this.snackbar.error('Failed to load products');
       }
     });
   }

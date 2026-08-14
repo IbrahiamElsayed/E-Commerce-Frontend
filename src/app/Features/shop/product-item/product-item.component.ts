@@ -1,11 +1,14 @@
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { Product } from '../../../shared/models/product';
 import { MatCard, MatCardContent, MatCardActions } from '@angular/material/card';
 import { CurrencyPipe } from '@angular/common';
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { RouterLink } from '@angular/router';
+import { SnackbarService } from '../../../core/services/snackbar.service';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-product-item',
@@ -24,4 +27,6 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductItemComponent {
   @Input() product?:Product;
+  private snackbar = inject(SnackbarService);
+  cartService=inject(CartService);
 }

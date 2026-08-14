@@ -1,89 +1,352 @@
 @if (product(); as product) {
 
-<nav class="mb-6 text-sm text-gray-500">
-  <a routerLink="/" class="transition hover:text-blue-700">Home</a>
-  <span class="mx-2">/</span>
-  <a routerLink="/shop" class="transition hover:text-blue-700">Shop</a>
-  <span class="mx-2">/</span>
-  <span class="font-medium text-gray-900">{{ product.name }}</span>
-</nav>
+  <section class="py-8">
 
-<div class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+    <div class="mx-auto max-w-7xl px-4">
 
-  <div class="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-    <img
-      class="aspect-square w-full object-cover transition-transform duration-300 hover:scale-105"
-      [src]="product.PictureUrl"
-      [alt]="product.name">
-  </div>
+      <!-- Breadcrumb -->
+      <nav class="mb-6 text-sm text-gray-500">
 
-  <div>
+        <a
+          routerLink="/"
+          class="transition hover:text-blue-700">
 
-    <p class="text-sm font-semibold uppercase tracking-widest text-blue-700">
-      {{ product.brand }}
-    </p>
+          Home
 
-    <h1 class="mt-2 text-3xl font-bold text-gray-900">
-      {{ product.name }}
-    </h1>
+        </a>
 
-    <p class="mt-2 text-sm text-gray-500">
-      {{ product.type }}
-    </p>
+        <span class="mx-2">
+          /
+        </span>
 
-    <div class="mt-5 flex flex-wrap items-center gap-4">
-      <span class="text-4xl font-bold text-blue-700">
-        {{ product.price | currency }}
-      </span>
-      <span
-        class="rounded-full px-3 py-1 text-sm font-semibold"
-        [class]="product.QuantityInStock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
-        {{ product.QuantityInStock > 0 ? 'In Stock' : 'Out of Stock' }}
-      </span>
-    </div>
+        <a
+          routerLink="/shop"
+          class="transition hover:text-blue-700">
 
-    <p class="mt-6 leading-relaxed text-gray-600">
-      {{ product.description }}
-    </p>
+          Shop
 
-    <div class="mt-6">
-      <span class="text-sm font-semibold text-gray-800">Quantity</span>
-      <div class="mt-2 inline-flex items-center rounded-lg border border-gray-300">
-        <button mat-icon-button type="button" (click)="decrement()" aria-label="Decrease quantity">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <span class="w-12 text-center text-lg font-semibold">{{ quantity() }}</span>
-        <button mat-icon-button type="button" (click)="increment()" aria-label="Increase quantity">
-          <mat-icon>add</mat-icon>
-        </button>
+        </a>
+
+        <span class="mx-2">
+          /
+        </span>
+
+        <span class="font-medium text-gray-900">
+
+          {{ product.name }}
+
+        </span>
+
+      </nav>
+
+
+      <!-- Product -->
+      <div
+        class="grid grid-cols-1 gap-10 lg:grid-cols-2">
+
+
+        <!-- Image -->
+        <div
+          class="overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+
+          <img
+            class="aspect-square w-full object-cover transition-transform duration-300 hover:scale-105"
+            [src]="product.PictureUrl"
+            [alt]="product.name">
+
+        </div>
+
+
+        <!-- Details -->
+        <div>
+
+          <!-- Brand -->
+          <p
+            class="text-sm font-semibold uppercase tracking-widest text-blue-700">
+
+            {{ product.brand }}
+
+          </p>
+
+
+          <!-- Name -->
+          <h1
+            class="mt-2 text-3xl font-bold text-gray-900">
+
+            {{ product.name }}
+
+          </h1>
+
+
+          <!-- Cart information -->
+          <p
+            class="mt-2 text-sm text-gray-500">
+
+            You have
+
+            <span
+              class="font-semibold text-gray-900">
+
+              {{ quantityIncart }}
+
+            </span>
+
+            of this item in your cart.
+
+          </p>
+
+
+          <!-- Type -->
+          <p
+            class="mt-2 text-sm text-gray-500">
+
+            {{ product.type }}
+
+          </p>
+
+
+          <!-- Price / Stock -->
+          <div
+            class="mt-5 flex flex-wrap items-center gap-4">
+
+
+            <span
+              class="text-4xl font-bold text-blue-700">
+
+              {{ product.price | currency }}
+
+            </span>
+
+
+            <span
+              class="rounded-full px-3 py-1 text-sm font-semibold"
+              [class]="
+                product.QuantityInStock > 0
+                  ? 'bg-green-100 text-green-700'
+                  : 'bg-red-100 text-red-700'
+              ">
+
+              {{
+                product.QuantityInStock > 0
+                  ? 'In Stock'
+                  : 'Out of Stock'
+              }}
+
+            </span>
+
+          </div>
+
+
+          <!-- Description -->
+          <p
+            class="mt-6 leading-relaxed text-gray-600">
+
+            {{ product.description }}
+
+          </p>
+
+
+          <!-- Quantity -->
+          <div
+            class="mt-6">
+
+            <span
+              class="text-sm font-semibold text-gray-800">
+
+              Quantity
+
+            </span>
+
+
+            <div
+              class="mt-2 flex items-center gap-4">
+
+
+              <!-- Minus -->
+              <button
+                mat-icon-button
+                type="button"
+                [disabled]="quantity() <= 1"
+                (click)="decrement()"
+                aria-label="Decrease quantity">
+
+                <mat-icon>
+                  remove
+                </mat-icon>
+
+              </button>
+
+
+              <!-- Quantity input -->
+              <mat-form-field
+                appearance="outline"
+                class="w-28">
+
+                <mat-label>
+                  Quantity
+                </mat-label>
+
+                <input
+                  matInput
+                  type="number"
+                  min="1"
+                  [max]="product.QuantityInStock"
+                  [ngModel]="quantity()"
+                  (ngModelChange)="quantity.set(+$event)">
+
+              </mat-form-field>
+
+
+              <!-- Plus -->
+              <button
+                mat-icon-button
+                type="button"
+                [disabled]="
+                  quantity() >= product.QuantityInStock
+                "
+                (click)="increment()"
+                aria-label="Increase quantity">
+
+                <mat-icon>
+                  add
+                </mat-icon>
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- Actions -->
+          <div
+            class="mt-6 flex flex-wrap gap-3">
+
+
+            <!-- Add / Update -->
+            <button
+              mat-flat-button
+              class="!px-8 !py-4"
+
+              [disabled]="
+                product.QuantityInStock === 0 ||
+                quantity() >= product.QuantityInStock ||
+                quantity() === quantityIncart
+              "
+
+              (click)="
+                quantityIncart > 0
+                  ? updateCart()
+                  : addToCart()
+              ">
+
+              <mat-icon>
+                add_shopping_cart
+              </mat-icon>
+
+              {{ getButtonText() }}
+
+            </button>
+
+
+            <!-- Buy Now -->
+            <button
+              mat-stroked-button
+              class="!px-8 !py-4"
+
+              [disabled]="
+                product.QuantityInStock === 0 ||
+                quantity() >= product.QuantityInStock
+              "
+
+              (click)="buyNow()">
+
+              Buy Now
+
+            </button>
+
+          </div>
+
+
+          <!-- Product Information -->
+          <div
+            class="mt-8 space-y-2 border-t border-gray-100 pt-5 text-sm text-gray-500">
+
+
+            <p>
+
+              Category:
+
+              <span
+                class="font-semibold text-gray-800">
+
+                {{ product.type }}
+
+              </span>
+
+            </p>
+
+
+            <p>
+
+              Brand:
+
+              <span
+                class="font-semibold text-gray-800">
+
+                {{ product.brand }}
+
+              </span>
+
+            </p>
+
+
+            <p>
+
+              Item #:
+
+              <span
+                class="font-semibold text-gray-800">
+
+                {{ product.id }}
+
+              </span>
+
+            </p>
+
+
+            <p>
+
+              Available Stock:
+
+              <span
+                class="font-semibold text-gray-800">
+
+                {{ product.QuantityInStock }}
+
+              </span>
+
+            </p>
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
 
-    <div class="mt-6 flex flex-wrap gap-3">
-      <button
-        mat-flat-button
-        class="!px-8 !py-4"
-        [disabled]="product.QuantityInStock === 0">
-        <mat-icon>add_shopping_cart</mat-icon>
-        Add to Cart
-      </button>
-      <button mat-stroked-button class="!px-8 !py-4">
-        Buy Now
-      </button>
-    </div>
+  </section>
 
-    <div class="mt-8 space-y-2 border-t border-gray-100 pt-5 text-sm text-gray-500">
-      <p>Category: <span class="font-semibold text-gray-800">{{ product.type }}</span></p>
-      <p>Brand: <span class="font-semibold text-gray-800">{{ product.brand }}</span></p>
-      <p>Item #: <span class="font-semibold text-gray-800">{{ product.id }}</span></p>
-    </div>
+}
 
-  </div>
+@else {
 
-</div>
+  <p
+    class="py-20 text-center text-gray-500">
 
-} @else {
+    Loading product...
 
-<p class="py-20 text-center text-gray-500">Loading product...</p>
+  </p>
 
 }

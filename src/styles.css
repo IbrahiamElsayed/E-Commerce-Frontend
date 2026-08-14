@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+.snackbar-success {
+  background-color: #16a34a;
+  color: white;
+}
+
+.snackbar-success .mdc-button__label {
+  color: white;
+}
+
+.snackbar-error {
+  background-color: #dc2626;
+  color: white;
+}
+
+.snackbar-error .mdc-button__label {
+  color: white;
+}

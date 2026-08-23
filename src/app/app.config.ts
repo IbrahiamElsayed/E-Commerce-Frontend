@@ -23,6 +23,7 @@ import { InitService } from './core/services/init.service';
 import { lastValueFrom } from 'rxjs';
 
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { authInterceptor } from './core/interceptores/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,7 +38,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         errorInterceptor,
-        loadingInterceptor
+        loadingInterceptor,
+        authInterceptor
+
       ])
     ),
 

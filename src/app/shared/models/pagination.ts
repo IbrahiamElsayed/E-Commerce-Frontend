@@ -1,6 +1,6 @@
 export interface Pagination<T> {
-  pageInndex: number;
+  pageIndex: number;
   pageSize: number;
   count: number;
-  date: T[];
+  data: T[];
 }

@@ -1,0 +1,55 @@
+<div class="flex min-h-[60vh] items-center justify-center">
+  <mat-card class="w-full max-w-md !rounded-2xl !p-10 !shadow-lg">
+
+    <div class="mb-8 text-center">
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
+        <span class="text-2xl font-bold text-blue-700">S</span>
+      </div>
+      <h1 class="mt-4 text-2xl font-bold text-gray-900">Create an account</h1>
+      <p class="mt-1 text-sm text-gray-500">Join us and start shopping</p>
+    </div>
+
+    @if (validationErrors?.length) {
+      <div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+        <ul class="list-disc pl-4">
+          @for (error of validationErrors; track $index) {
+            <li>{{ error }}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div class="flex gap-3">
+        <app-text-input formControlName="firstName" label="First name" type="text" />
+        <app-text-input formControlName="lastName" label="Last name" type="text" />
+      </div>
+
+      <app-text-input formControlName="email" label="Email address" type="email" />
+
+      <app-text-input formControlName="password" label="Password" type="password" />
+
+      <button
+        mat-flat-button
+        type="submit"
+        [disabled]="registerForm.invalid || isSubmitting"
+        class="w-full !rounded-lg !py-6 !text-base !font-semibold">
+        @if (isSubmitting) {
+          Creating account...
+        } @else {
+          Register
+        }
+      </button>
+
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-500">
+      Already have an account?
+      <a routerLink="/account/login" class="font-medium text-blue-700 hover:underline">
+        Sign in
+      </a>
+    </p>
+
+  </mat-card>
+</div>

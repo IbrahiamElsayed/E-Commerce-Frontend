@@ -1,0 +1,54 @@
+<div class="flex min-h-[60vh] items-center justify-center">
+  <mat-card class="w-full max-w-md !rounded-2xl !p-10 !shadow-lg">
+
+    <div class="mb-8 text-center">
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
+        <span class="text-2xl font-bold text-blue-700">S</span>
+      </div>
+      <h1 class="mt-4 text-2xl font-bold text-gray-900">Welcome back</h1>
+      <p class="mt-1 text-sm text-gray-500">Sign in to your account</p>
+    </div>
+
+    @if (errorMessage) {
+      <div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email address</mat-label>
+        <input formControlName="email" type="email" placeholder="name@example.com" matInput />
+        <mat-icon matPrefix class="!text-gray-400">email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" type="password" placeholder="Enter password" matInput />
+        <mat-icon matPrefix class="!text-gray-400">lock</mat-icon>
+      </mat-form-field>
+
+      <button
+        mat-flat-button
+        type="submit"
+        [disabled]="loginForm.invalid || isSubmitting"
+        class="w-full !rounded-lg !py-6 !text-base !font-semibold">
+        @if (isSubmitting) {
+          Signing in...
+        } @else {
+          Sign in
+        }
+      </button>
+
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-500">
+      Don't have an account?
+      <a routerLink="/account/register" class="font-medium text-blue-700 hover:underline">
+        Create one
+      </a>
+    </p>
+
+  </mat-card>
+</div>
